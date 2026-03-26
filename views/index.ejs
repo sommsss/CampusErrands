@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Tasks</title>
+</head>
+<body>
+
+<h1>All Tasks</h1>
+
+<a href="/tasks/new">Create New Task</a>
+
+<ul>
+    <% tasks.forEach(task => { %>
+        <li>
+            <strong><%= task.title %></strong><br>
+            <%= task.description %><br>
+            ₹<%= task.bounty %>
+        </li>
+        <br>
+    <% }) %>
+</ul>
+
+</body>
+</html>
