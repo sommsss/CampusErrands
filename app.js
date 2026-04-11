@@ -21,9 +21,11 @@ app.use(session({
 app.set('view engine', 'ejs');
 
 // DB connect
-mongoose.connect('mongodb://127.0.0.1:27017/campus')
-    .then(() => console.log("DB connected"))
-    .catch(err => console.log(err));
+
+
+mongoose.connect(process.env.MONGO_URI)
+.then(() => console.log("DB connected"))
+.catch(err => console.log(err));
 
 // ---------- DEBUG ROUTE ----------
 app.get('/me', (req, res) => {
