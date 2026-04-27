@@ -2,7 +2,7 @@ const { GoogleGenerativeAI } = require("@google/generative-ai");
 
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
-// 🔹 Strong keyword filter (this WILL catch "kill")
+// when ai fails to detect
 function quickCheck(text) {
     const lower = (text || "").toLowerCase().trim();
 
@@ -14,7 +14,7 @@ function quickCheck(text) {
     };
 }
 
-// 🔹 AI moderation (secondary)
+// AI moderation 
 async function aiModerate(text) {
     const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
 

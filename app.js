@@ -157,7 +157,7 @@ app.post('/tasks/:id/complete', async (req, res) => {
     res.redirect('/tasks');
 });
 
-// ---------- MY TASKS (dashboard) ----------
+// ---------- (dashboard) ----------
 
 app.get('/mytasks', async (req, res) => {
     if (!req.session.userId) {
