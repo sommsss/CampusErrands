@@ -1,8 +1,9 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
-
+const taskController = require('./controllers/taskController');
 const User = require('./models/User');
 const Task = require('./models/Task');
 
@@ -23,7 +24,7 @@ app.set('view engine', 'ejs');
 // DB connect
 
 
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log("DB connected"))
 .catch(err => console.log(err));
 
@@ -84,32 +85,28 @@ app.get('/tasks/new', (req, res) => {
 });
 
 // create task
-app.post('/tasks', async (req, res) => {
+app.post('/tasks', (req, res) => {
     if (!req.session.userId) {
         return res.send("Please login first ❌");
     }
 
-    const task = new Task({
-        ...req.body,
-        requester: req.session.userId
-    });
+    // inject user into req (so controller can use it)
+    req.user = { _id: req.session.userId };
 
-    await task.save();
-    res.redirect('/tasks');
+    taskController.createTask(req, res);
 });
 
-// show all tasks (WITH populate)
 app.get('/tasks', async (req, res) => {
-    const tasks = await Task.find()
+    const tasks = await Task.find({ moderationStatus: "clean" })
         .populate('requester')
         .populate('tasker');
 
     res.render('index', { 
         tasks,
-        userId: req.session.userId
+        userId: req.session.userId,
+        flagged: req.query.flagged
     });
 });
-
 // claim task
 app.post('/tasks/:id/claim', async (req, res) => {
     if (!req.session.userId) {

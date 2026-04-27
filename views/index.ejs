@@ -290,6 +290,24 @@
 <body>
 <div class="container mt-0 pb-5">
 
+
+    <% if (flagged) { %>
+    <div style="
+        background: rgba(245, 166, 35, 0.1);
+        border: 1px solid rgba(245, 166, 35, 0.35);
+        color: #f5a623;
+        padding: 12px 16px;
+        border-radius: 10px;
+        margin-bottom: 18px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    ">
+        ⚠️ Your task was flagged and is under review. It won’t be visible to others.
+    </div>
+<% } %>
+
     <div class="page-header">
         <h1>All <span>Tasks</span></h1>
         <a href="/tasks/new" class="btn-primary-custom">

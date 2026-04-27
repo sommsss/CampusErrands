@@ -22,17 +22,28 @@
                 <h5 class="task-title"><%= t.title %></h5>
                 <span class="task-bounty">₹<%= t.bounty %></span>
             </div>
+
             <div class="task-meta">
                 <%
                     let sc = 'status-open';
                     if (t.status === 'Claimed')   sc = 'status-claimed';
                     if (t.status === 'Completed') sc = 'status-completed';
                 %>
+
                 <span class="status-badge <%= sc %>"><%= t.status %></span>
+
                 <% if (t.tasker) { %>
                     <span class="meta-chip"><strong>Tasker:</strong> <%= t.tasker.username %></span>
                 <% } %>
             </div>
+
+            <!-- 🔥 MODERATION FLAG -->
+            <% if (t.moderationStatus === "flagged") { %>
+                <div style="margin-top: 0.5rem; color: #ff4d4d; font-size: 13px;">
+                    ⚠️ Under review (not visible to others)
+                </div>
+            <% } %>
+
         </div>
     <% }) %>
 </div>
@@ -55,17 +66,28 @@
                 <h5 class="task-title"><%= t.title %></h5>
                 <span class="task-bounty">₹<%= t.bounty %></span>
             </div>
+
             <div class="task-meta">
                 <%
                     let sa = 'status-open';
                     if (t.status === 'Claimed')   sa = 'status-claimed';
                     if (t.status === 'Completed') sa = 'status-completed';
                 %>
+
                 <span class="status-badge <%= sa %>"><%= t.status %></span>
+
                 <% if (t.requester) { %>
                     <span class="meta-chip"><strong>By:</strong> <%= t.requester.username %></span>
                 <% } %>
             </div>
+
+            <!-- 🔥 MODERATION FLAG -->
+            <% if (t.moderationStatus === "flagged") { %>
+                <div style="margin-top: 0.5rem; color: #ff4d4d; font-size: 13px;">
+                    ⚠️ Under review (not visible to others)
+                </div>
+            <% } %>
+
         </div>
     <% }) %>
 </div>
